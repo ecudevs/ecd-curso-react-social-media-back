@@ -1,8 +1,6 @@
 import { Router } from "express";
 import UsuariosController from "../controllers/UsuariosController";
 
-
-
 const router = new Router();
 
 router.get("/", (req, res) => {

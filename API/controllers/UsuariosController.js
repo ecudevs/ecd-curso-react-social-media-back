@@ -8,7 +8,7 @@ class Usuarios {
                 .get().then(function (respuesta) {
                     const usuarios = respuesta.docs.map(item => Object.assign({ _id: item.id }, item.data()));
                     res.status(200).send({ usuarios });
-                }).catch(function (error) {
+                }).catch(error => {
                     throw error
                 });
         }
@@ -20,7 +20,7 @@ class Usuarios {
 
 
     async saveUsuario(req, res) {
-        console.log(JSON.stringify(req))
+        console.log(JSON.stringify(req.body))
 
         //[1] EXTRAER claves DE req.body
         const { correo, ocupacion, fotoUrl, nombres, amigos } = req.body;
@@ -40,8 +40,7 @@ class Usuarios {
                     //[3] SI INSERT OK -> DEVUELVO [2] PARA EVITAR CONSULTAR DE NUEVO POR ID
                     console.log("Document written with ID: ", respuesta.id);
                     res.status(200).send({ usuario });
-                }).catch(function (error) {
-                    //[3] SI INSERT FAIL -> SALGO AL CATCH PRINCIPAL
+                }).catch(error => {
                     throw error
                 });
         }

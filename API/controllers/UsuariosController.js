@@ -6,8 +6,8 @@ class Usuarios {
         try {
             firestoreRef.collection("usuarios").orderBy('creationDate', 'desc')
                 .get().then(function (respuesta) {
-                    const usuario = respuesta.docs.map(item => Object.assign({ _id: item.id }, item.data()));
-                    res.status(200).send({ usuario });
+                    const usuarios = respuesta.docs.map(item => Object.assign({ _id: item.id }, item.data()));
+                    res.status(200).send({ usuarios });
                 }).catch(function (error) {
                     throw error
                 });
@@ -23,7 +23,7 @@ class Usuarios {
         //[1] EXTRAER claves DE req.body
         const { correo, descripcion, fotoUrl, nombres, amigos } = req.body
         //[2] ASIGNAR CLAVES A OBEJTO DATA
-        const data = {
+        const usuario = {
             correo,
             descripcion,
             fotoUrl,
@@ -33,13 +33,11 @@ class Usuarios {
         };
         try {
             //[2] SUBSCRIPCION A QUERY PARA INSERTAR EN  FIREBASE
-            firestoreRef.collection('usuarios').add({ ...data })
+            firestoreRef.collection('usuarios').add({ ...usuario })
                 .then(function (respuesta) {
                     //[3] SI INSERT OK -> DEVUELVO [2] PARA EVITAR CONSULTAR DE NUEVO POR ID
                     console.log("Document written with ID: ", respuesta.id);
-                    res.status(200).send({
-                        usuarios: data
-                    });
+                    res.status(200).send({ usuario });
                 }).catch(function (error) {
                     //[3] SI INSERT FAIL -> SALGO AL CATCH PRINCIPAL
                     throw error

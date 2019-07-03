@@ -12,7 +12,7 @@ class Usuarios {
                     throw error
                 });
         }
-        catch (err) {
+        catch (error) {
             console.log(error)
             res.status(500).send({ success: false, error, message: "Ocurrió algo!" });
         }
@@ -20,6 +20,7 @@ class Usuarios {
 
 
     async saveUsuario(req, res) {
+        console.log('here...')
         //[1] EXTRAER claves DE req.body
         const { correo, ocupacion, fotoUrl, nombres, amigos } = req.body
         //[2] ASIGNAR CLAVES A OBEJTO DATA
@@ -43,9 +44,8 @@ class Usuarios {
                     throw error
                 });
         }
-        catch (err) {
+        catch (error) {
             //[3.1] IMPRIMO MENSAJE DEVUELVO MENSAJE DE ERROR GENERICO
-            console.log(error)
             res.status(500).send({ success: false, error, message: "Ocurrió algo!" });
         }
     }

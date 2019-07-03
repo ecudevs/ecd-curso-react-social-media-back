@@ -20,9 +20,10 @@ class Usuarios {
 
 
     async saveUsuario(req, res) {
-        console.log('here...')
+        console.log(JSON.stringify(req))
+
         //[1] EXTRAER claves DE req.body
-        const { correo, ocupacion, fotoUrl, nombres, amigos } = req.body
+        const { correo, ocupacion, fotoUrl, nombres, amigos } = req.body;
         //[2] ASIGNAR CLAVES A OBEJTO DATA
         const usuario = {
             correo,

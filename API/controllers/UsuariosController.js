@@ -20,7 +20,6 @@ class Usuarios {
 
 
     async saveUsuario(req, res) {
-        console.log(JSON.stringify(req.body))
 
         //[1] EXTRAER claves DE req.body
         const { correo, ocupacion, fotoUrl, nombres, amigos } = req.body;
@@ -33,6 +32,8 @@ class Usuarios {
             amigos: [],
             creationDate: firestore.FieldValue.serverTimestamp()
         };
+        console.log(JSON.stringify(usuario))
+
         try {
             //[2] SUBSCRIPCION A QUERY PARA INSERTAR EN  FIREBASE
             firestoreRef.collection('usuarios').add({ ...usuario })

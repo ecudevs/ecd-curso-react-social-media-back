@@ -25,7 +25,7 @@ class Usuarios {
         //[2] ASIGNAR CLAVES A OBEJTO DATA
         const usuario = {
             correo,
-            descripcion,
+            ocupacion,
             fotoUrl,
             nombres,
             amigos: [],

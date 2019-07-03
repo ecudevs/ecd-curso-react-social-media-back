@@ -16,7 +16,7 @@ router
         UsuariosController.getUsuarios(res)
     })
     .post("/usuarios", (req, res) => {
-        UsuariosController.saveUsuarios(req, res)
+        UsuariosController.saveUsuario(req, res)
     })
 
 

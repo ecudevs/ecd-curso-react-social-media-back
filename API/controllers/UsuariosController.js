@@ -19,7 +19,7 @@ class Usuarios {
     }
 
 
-    async saveUsuarios(req, res) {
+    async saveUsuario(req, res) {
         //[1] EXTRAER claves DE req.body
         const { correo, descripcion, fotoUrl, nombres, amigos } = req.body
         //[2] ASIGNAR CLAVES A OBEJTO DATA

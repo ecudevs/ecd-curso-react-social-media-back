@@ -7,7 +7,7 @@
     "dev": "nodemon --exec babel-node API/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "babel -d ./build/API ./API  -s",
-    "start": "node ./build/API/server.js"
+    "start": "nodemon ./build/API/server.js"
   },
   "author": "danmatlam",
   "license": "ISC",

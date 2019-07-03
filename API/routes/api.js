@@ -1,16 +1,23 @@
 import { Router } from "express";
 import UsuariosController from "../controllers/UsuariosController";
-
 const router = new Router();
 
-router.get("/", (req, res) => {
+router.get("/test", (req, res) => {
+    res.send("Go on Little Batmanx!");
+});
+
+router.get("/hola", (req, res) => {
     res.send("Go on Little Batmanx!");
 });
 
 
-router.get("/usuarios", (req, res) => {
-    UsuariosController.getUsuarios(res)
-});
+router
+    .get("/usuarios", (req, res) => {
+        UsuariosController.getUsuarios(res)
+    })
+    .post("/usuarios", (req, res) => {
+        UsuariosController.saveUsuarios(req, res)
+    })
 
 
 // SI TUVIERAMOS QUE MANDAR PARAMETROS

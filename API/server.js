@@ -13,7 +13,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api", api);
 app.use("/", express.static(path.join(__dirname, "../src")));
-app.get("/*", (req, res) => { res.sendFile(path.resolve(__dirname, "../src", "index.html")); });
 app.listen(app.get("port"), async (req, res) => {
     console.log("Magic happens on port: ", NODE_ENV);
     console.log("We are on: ", NODE_ENV);

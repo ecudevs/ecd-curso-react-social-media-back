@@ -1,5 +1,5 @@
 import { Router } from "express";
-import UsuariosController from "../controllers/UsuariosController";
+import UsuarioController from "../controllers/UsuarioController";
 const router = new Router();
 
 router.get("/test", (req, res) => {
@@ -13,10 +13,13 @@ router.get("/hola", (req, res) => {
 
 router
     .get("/usuarios", (req, res) => {
-        UsuariosController.getUsuarios(res)
+        UsuarioController.getUsuarios(res)
     })
     .post("/usuarios", (req, res) => {
-        UsuariosController.saveUsuario(req, res)
+        UsuarioController.saveUsuario(req, res)
+    })
+    .put("/usuarios", (req, res) => {
+        UsuarioController.updateUsuario(req, res)
     })
 
 

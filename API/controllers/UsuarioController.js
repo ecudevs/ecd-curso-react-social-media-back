@@ -1,12 +1,12 @@
 import { firestoreRef, storageRef } from '../firebase/firestore';
 import { firestore } from 'firebase';
 
-
-
 class Usuario {
     async getUsuarios(res) {
         try {
-            firestoreRef.collection("usuarios").orderBy('creationDate', 'desc')
+            firestoreRef
+                .collection('usuarios')
+                .orderBy('creationDate', 'desc')
                 .get().then(function (respuesta) {
                     const usuarios = respuesta.docs.map(item => Object.assign({ _id: item.id }, item.data()));
                     res.status(200).send({ usuarios });
@@ -22,7 +22,9 @@ class Usuario {
 
     async saveUsuario(req, res) {
         //[1] EXTRAER claves DE req.body
+
         const { correo, ocupacion, nombres, amigos } = req.body;
+
         //[2] ASIGNAR CLAVES A OBEJTO DATA
         const usuario = {
             correo,
@@ -34,7 +36,9 @@ class Usuario {
         }
         try {
             //[2] SUBSCRIPCION A QUERY PARA INSERTAR EN  FIREBASE
-            firestoreRef.collection('usuarios').add(usuario)
+            firestoreRef
+                .collection('usuarios')
+                .add(usuario)
                 .then(function (respuesta) {
                     //[3] SI INSERT OK -> DEVUELVO [2] 
                     console.log("Document written with ID: ", respuesta.id);
@@ -50,7 +54,6 @@ class Usuario {
         }
     }
 
-
     async updateUsuario(req, res) {
         //[1] EXTRAER claves DE req.body
         const { _id, correo, ocupacion, nombres, estado, amigos } = req.body;
@@ -65,11 +68,10 @@ class Usuario {
             updateDate: firestore.FieldValue.serverTimestamp()
         }
         console.log(usuario)
-
         try {
-            firestoreRef.collection('usuarios').doc(_id).update(usuario)
+            firestoreRef.collection('usuarios')
+                .doc(_id).update(usuario)
                 .then(function () {
-                    //[3] SI INSERT OK -> DEVUELVO [2] 
                     usuario._id = _id;
                     res.status(200).send({ usuario });
                 }).catch(error => {
@@ -81,14 +83,6 @@ class Usuario {
             res.status(500).send({ success: false, error, message: "Ocurrió algo!" });
         }
     }
-
-
-
-
-
-
-
-
 }
 
 

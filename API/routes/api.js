@@ -1,15 +1,12 @@
 import { Router } from "express";
 import UsuarioController from "../controllers/UsuarioController";
+import PublicacionesController from "../controllers/PublicacionesController";
+
 const router = new Router();
 
 router.get("/test", (req, res) => {
     res.send("Go on Little Batmanx!");
 });
-
-router.get("/hola", (req, res) => {
-    res.send("Go on Little Batmanx!");
-});
-
 
 router
     .get("/usuarios", (req, res) => {
@@ -21,6 +18,19 @@ router
     .put("/usuarios", (req, res) => {
         UsuarioController.updateUsuario(req, res)
     })
+
+
+router
+    .get("/publicaciones", (req, res) => {
+        PublicacionesController.getPublicaciones(res)
+    })
+    .post("/publicaciones", (req, res) => {
+        PublicacionesController.getPublicaciones(res)
+    })
+    .put("/publicaciones", (req, res) => {
+        PublicacionesController.getPublicaciones(res)
+    })
+
 
 
 // SI TUVIERAMOS QUE MANDAR PARAMETROS

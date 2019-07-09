@@ -17,6 +17,6 @@ app.use("/", express.static(path.join(__dirname, "../src")));
 app.listen(app.get("port"), async (req, res) => {
     console.log("Magic happens on port: ", PORT);
     console.log("We are on: ", NODE_ENV);
-    NODE_ENV === 'DEVELOPMENT' && await open("http://localhost:" + app.get("port") + "/api");
-    await open("http://localhost:" + app.get("port"));
+    // NODE_ENV === 'DEVELOPMENT' && await open("http://localhost:" + app.get("port") + "/api");
+    // await open("http://localhost:" + app.get("port"));
 });

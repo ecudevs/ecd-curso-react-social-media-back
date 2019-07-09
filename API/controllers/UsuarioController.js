@@ -5,8 +5,8 @@ class Usuario {
     async getUsuarios(res) {
         try {
             firestoreRef
-                .collection('usuarios')
-                .orderBy('creationDate', 'desc')
+            var usuariosRef = firestoreRef.collection('usuarios')
+            var query = usuariosRef.where("estado", "==", "A")
                 .get().then(function (respuesta) {
                     const usuarios = respuesta.docs.map(item => Object.assign({ _id: item.id }, item.data()));
                     res.status(200).send({ usuarios });
@@ -20,11 +20,13 @@ class Usuario {
         }
     }
 
+
+
+
+
     async saveUsuario(req, res) {
         //[1] EXTRAER claves DE req.body
-
         const { correo, ocupacion, nombres, amigos } = req.body;
-
         //[2] ASIGNAR CLAVES A OBEJTO DATA
         const usuario = {
             correo,
@@ -80,6 +82,37 @@ class Usuario {
         }
         catch (error) {
             //[3.1] IMPRIMO MENSAJE DEVUELVO MENSAJE DE ERROR GENERICO
+            res.status(500).send({ success: false, error, message: "Ocurrió algo!" });
+        }
+    }
+
+
+
+    async loginUsuario(req, res) {
+        try {
+            console.log
+            const { correo, contrasena } = req.body;
+            var usuariosRef = firestoreRef.collection('usuarios');
+            var query = usuariosRef
+                .where("contrasena", "==", contrasena)
+                .where("correo", "==", correo)
+                .get().then(function (respuesta) {
+                    const usuarios = respuesta.docs.map(item => Object.assign({ _id: item.id }, item.data()));
+                    const usuario = usuarios[0];
+                    usuario.updateDate = firestore.FieldValue.serverTimestamp();
+                    firestoreRef.collection('usuarios')
+                        .doc(usuario._id).update(usuario)
+                        .then(function () {
+                            res.status(200).send(usuario);
+                        }).catch(error => {
+                            throw error
+                        });
+                }).catch(error => {
+                    throw error
+                });
+        }
+        catch (error) {
+            console.log(error)
             res.status(500).send({ success: false, error, message: "Ocurrió algo!" });
         }
     }

@@ -18,6 +18,9 @@ router
     .put("/usuarios", (req, res) => {
         UsuarioController.updateUsuario(req, res)
     })
+router.post("/loginUsuario", (req, res) => {
+    UsuarioController.loginUsuario(req, res)
+})
 
 
 router
@@ -25,11 +28,9 @@ router
         PublicacionesController.getPublicaciones(res)
     })
     .post("/publicaciones", (req, res) => {
-        PublicacionesController.getPublicaciones(res)
+        PublicacionesController.savePublicacion(req, res)
     })
-    .put("/publicaciones", (req, res) => {
-        PublicacionesController.getPublicaciones(res)
-    })
+
 
 
 

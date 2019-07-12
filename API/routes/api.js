@@ -21,8 +21,6 @@ router
 router.post("/loginUsuario", (req, res) => {
     UsuarioController.loginUsuario(req, res)
 })
-
-
 router
     .get("/publicaciones", (req, res) => {
         PublicacionesController.getPublicaciones(res)

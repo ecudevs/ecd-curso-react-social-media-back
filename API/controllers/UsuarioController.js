@@ -89,33 +89,53 @@ class Usuario {
 
 
     async loginUsuario(req, res) {
-        try {
-            console.log
-            const { correo, contrasena } = req.body;
-            var usuariosRef = firestoreRef.collection('usuarios');
-            var query = usuariosRef
-                .where("contrasena", "==", contrasena)
-                .where("correo", "==", correo)
-                .get().then(function (respuesta) {
-                    const usuarios = respuesta.docs.map(item => Object.assign({ _id: item.id }, item.data()));
-                    const usuario = usuarios[0];
-                    usuario.updateDate = firestore.FieldValue.serverTimestamp();
-                    firestoreRef.collection('usuarios')
-                        .doc(usuario._id).update(usuario)
-                        .then(function () {
-                            res.status(200).send(usuario);
-                        }).catch(error => {
-                            throw error
-                        });
-                }).catch(error => {
-                    throw error
-                });
-        }
-        catch (error) {
-            console.log(error)
-            res.status(500).send({ success: false, error, message: "Ocurrió algo!" });
-        }
+
+
+        console.log
+        const { correo, contrasena } = req.body;
+        firestoreRef
+            .collection('usuarios').where("contrasena", "==", contrasena)
+            .where("correo", "==", correo)
+            .get()
+            .then(
+
+
+
+
+                function (respuesta) {
+                    const usuarios = respuesta.docs.map(item => Object.assign({ _id: item.id }, item.data()))
+                    if (usuarios.length > 0) {
+                        const usuario = usuarios[0];
+                        usuario.updateDate = firestore.FieldValue.serverTimestamp();
+                        res.status(200).send({ usuario });
+                        firestoreRef.collection('usuarios')
+                            .doc(usuario._id).update(usuario)
+                            .then(function () {
+                                res.status(200).send(usuario);
+                            }).catch(error => {
+                                throw error
+                            });
+                    } else {
+                        throw 'USUARIO NO EXISTE...'
+                    }
+
+                }
+
+            ).catch(error => {
+                console.log('Error A: ' + error)
+                res.status(500).send({ success: false, error, message: "Ocurrió algo!" });
+            });
+
+
+
+
+
     }
+
+
+
+
+
 }
 
 
